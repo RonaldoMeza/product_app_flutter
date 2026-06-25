@@ -12,11 +12,7 @@ class CategoriaRepository {
 
   Future<Categoria?> getById(int id) async {
     final db = await _db.database;
-    final maps = await db.query(
-      'categorias',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+    final maps = await db.query('categorias', where: 'id = ?', whereArgs: [id]);
     if (maps.isNotEmpty) return Categoria.fromMap(maps.first);
     return null;
   }
@@ -89,11 +85,7 @@ class CategoriaRepository {
       } else {
         await db.update(
           'categorias',
-          {
-            'nombre': name,
-            'descripcion': name,
-            'syncedAt': now,
-          },
+          {'nombre': name, 'descripcion': name, 'syncedAt': now},
           where: 'id = ?',
           whereArgs: [existing.first['id']],
         );
